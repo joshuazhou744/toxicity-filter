@@ -1,7 +1,6 @@
 import time
 from typing import Optional, Dict, Any, List
 
-from ibm_watsonx_ai.foundation_models.utils.enums import ModelType
 from ibm_watsonx_ai.foundation_models import ModelInference
 from ibm_watsonx_ai import Credentials
 import json
