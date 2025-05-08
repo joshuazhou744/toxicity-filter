@@ -16,7 +16,6 @@ def process_text(text: str):
     is_toxic, scores = toxicity_detector.is_toxic(text)
 
     scores = toxicity_detector._format_scores(scores)
-    toxicity_detector._print_scores(scores)
     
     if not is_toxic:
         return text

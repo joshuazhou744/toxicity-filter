@@ -2,14 +2,16 @@ import time
 from typing import Optional, Dict, Any, List
 
 from ibm_watsonx_ai.foundation_models import ModelInference
-from ibm_watsonx_ai import Credentials
+from ibm_watsonx_ai import Credentials, APIClient
 import json
 
 credentials = {
     "url"    : "https://us-south.ml.cloud.ibm.com",
-    "api_key" : "" # Typically there is an API key you have to input here to use but we don't need it in CloudIDE
+    # "api_key" : "<your_api_key" # Typically there is an API key you have to input here to use but we don't need it in CloudIDE
 }
-model_id = "ibm/granite-3-8b-instruct"
+client = APIClient(credentials)
+project_id = "skills-network"
+model_id = "meta-llama/llama-3-3-70b-instruct"
 prompt = """
 You are a toxicity filter. 
 You are given text either with context or independently,
@@ -20,12 +22,13 @@ You will only respond with the transformed text, nothing else.
 The transformed text should be grammatically correct within the context.
 It should also be whimsical, creative and fun.
 Get creative with it. You can make allusions, analogies and puns.
-NOTE THAT THE TRANSFORMED TEXT SHOULD BE THE SAME LENGTH TO THE ORIGINAL TEXT.
 
 For example:
 
 Original: "You are horrible"
 Transformed: "You are lovely!"
+
+IT IS CRUCIAL THAT THE TRANSFORMED TEXT SHOULD BE THE SAME LENGTH TO THE ORIGINAL TEXT.
 """
 
 
@@ -36,7 +39,7 @@ class TextTransformer:
         model: str = model_id,
         prompt: str = prompt,
         max_tokens: int = 150,
-        project_id: str = "skills-network"
+        project_id: str = project_id
     ):
         model = ModelInference(
             model_id=model_id,
